@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Diabetes Prediction</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f0f0;
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    
+    .container {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+
+    h1 {
+      color: #673ab7;
+    }
+
+    form {
+      margin-top: 20px;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      padding: 10px;
+      margin: 5px 0;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    button {
+      background-color: #673ab7;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      padding: 10px 20px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    button:hover {
+      background-color: #512da8;
+    }
+
+    h4 {
+      color: #673ab7;
+      margin-top: 20px;
+    }
+    
+    .error-message {
+      color: #ff0000;
+      font-size: 12px;
+      margin-top: 5px;
+    }
+  </style>
+  <script>
+    function validateNumericInput(input) {
+      var numericValue = input.value.replace(/[^0-9.]/g, '');
+      input.value = numericValue;
+      
+      var errorMessage = input.nextElementSibling;
+      if (numericValue !== input.value) {
+        errorMessage.style.display = 'block';
+      } else {
+        errorMessage.style.display = 'none';
+      }
+    }
+  </script>
+</head>
+<body>
+  <div class="container">
+    <h1>Diabetes Prediction</h1>
+    <form action="{{ url_for('predict')}}" method="post">
+      <input type="text" name="HbA1c_level" placeholder="HbA1c level" required="required" oninput="validateNumericInput(this)">
+      <span class="error-message">Please enter numeric values only</span><br>
+      
+      <input type="text" name="blood_glucose_level" placeholder="Blood glucose level" required="required" oninput="validateNumericInput(this)">
+      <span class="error-message">Please enter numeric values only</span><br>
+      
+      <button type="submit">Predict Diabetes</button>
+    </form>
+    <h4>{{ prediction_text }}</h4>
+    
+  </div>
+</body>
+</html>
+
+
+
+
+
+
